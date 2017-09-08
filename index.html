@@ -11,16 +11,23 @@
         <div class="row">
             <div class="col-md-4">
                 <h1>Bars and Pubs</h1>
+                <input type="text" name="name">
+                <button>Filter</button>
             </div>
             <div class="col-md-8">
                 <h1>Map</h1>
-                <div id="map"></div>
+                <div id="map">
+                </div>
             </div>
         </div>
     </div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJqZnG5EpQwoJ21EvMlei69262wR0cKt8&callback=initMap">
+
+    <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJqZnG5EpQwoJ21EvMlei69262wR0cKt8&callback=initMap">
     </script>
+
+
     <script src="js/map.js"></script>
+    <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
