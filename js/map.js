@@ -4,12 +4,11 @@ var initLocation = {lat: 53.404469, lng: -2.987078};
 
 // Initial locations data
 var locations = [
-    {title:'The Cavern Club', location: {lat: 53.406376, lng: -2.988169}},
-    {title:'Be At One', location: {lat: 53.403097, lng: -2.981688}},
-    {title:'The Pumphouse Albert Dock', location: {lat: 53.401805,
-                                                   lng: -2.992101}},
-    {title:'Cask', location: {lat: 53.422320, lng: -2.914844}},
-    {title:'Little Coopers', location: {lat: 53.405274, lng: -2.980436}}
+    {title:'Albert Dock', location: {lat: 53.400143, lng: -2.993986}},
+    {title:'The Beatles Story', location: {lat: 53.399291, lng: -2.992017}},
+    {title:'The Cavern Club', location: {lat: 53.406375, lng: -2.987986}},
+    {title:'Liverpool Cathedral', location: {lat: 53.397457, lng: -2.973301}},
+    {title:'World Museum', location: {lat: 53.409975, lng: -2.981639}}
     ];
 
 
@@ -38,8 +37,14 @@ function initMap() {
     map.fitBounds(bounds);
 };
 
-
-// Attach properties to the markers
+function infoContent(marker, content) {
+    var contentString = '<div id="content">' +
+                        '<h4>' + marker.title + '</h4>' +
+                        '<p>' + content + '</p>' +
+                        '</div>';
+    return contentString;
+}
+//Attach properties to the markers
 function attach(marker) {
     // adding bounce animation to the click event
     marker.addListener('click', toggleBounce);
@@ -53,29 +58,25 @@ function attach(marker) {
     marker.addListener('click', populate);
     function populate() {
         // info window content
-        var contentString = '<div id="content">' +
-                            '<h1 id="firstHeading" class="firstHeading">' + marker.title + '</h1>' +
-                            '<p>' + marker.position + '</p>' +
-                            '</div>';
-        infowindow.setContent(contentString);
+        var url = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' +marker.title+ '&format=json&callback=wikiCallback';
+        $.ajax({
+            url: url,
+            dataType: 'jsonp',
+            success: processResult,
+            fail: fail
+        });
+        function processResult(apiResult){
+            var contentString = infoContent(marker, apiResult[2]);
+            infowindow.setContent(contentString);
+        }
     }
     infowindow.open(map, marker);
 }
 
 
 
-// function populateInfoWindow(marker) {
-//         // Check to make sure the infowindow is not already opened on this marker.
-//         if (infowindow.marker != marker) {
-//           // Clear the infowindow content to give the streetview time to load.
-//           infowindow.setContent('');
-//           infowindow.marker = marker;
-//           // Make sure the marker property is cleared if the infowindow is closed.
-//           infowindow.addListener('closeclick', function() {
-//             infowindow.marker = null;
-//           });
-//           infowindow.open(map, marker);
-// }
+
+
 
     var Bar = function(data) {
         this.title = ko.observable(data.title);
@@ -85,10 +86,10 @@ function attach(marker) {
 
 
 
-// // Error if lading the map fails
-// function Error() {
-//     alert('Google Maps fails to load. Please try again');
-// };
+// Error if lading the map fails
+function fail() {
+    alert('Failed to load. Please try again');
+};
 
 
 
