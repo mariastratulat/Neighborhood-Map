@@ -35,6 +35,7 @@ function initMap() {
         l.marker = marker;
     }
     map.fitBounds(bounds);
+    ko.applyBindings(new ViewModel());
 };
 
 function infoContent(marker, content) {
@@ -74,16 +75,10 @@ function attach(marker) {
 }
 
 
-
-
-
-
-    var Bar = function(data) {
-        this.title = ko.observable(data.title);
-        this.location = ko.observable(data.location);
-        this.marker = null;
-    };
-
+var Place = function(data) {
+    this.title = ko.observable(data.title);
+    this.location = ko.observable(data.location);
+};
 
 
 // Error if lading the map fails
@@ -91,7 +86,18 @@ function fail() {
     alert('Failed to load. Please try again');
 };
 
+var ViewModel = function() {
+    var self = this;
+
+    // locations list
+    this.placeList = ko.observableArray([]);
+
+    locations.forEach(function(placeItem){
+        self.placeList.push( new Place(placeItem) );
+    });
 
 
+};
 
+ko.applyBindings(new ViewModel());
 
