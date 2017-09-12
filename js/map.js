@@ -14,11 +14,14 @@ var locations = [
 
 // Setting up the initial map
 var map, infowindow, marker;
+var markers = [];
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: initLocation,
         zoom: 13
     });
+
     infowindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0; i<locations.length; i++) {
@@ -33,6 +36,7 @@ function initMap() {
         bounds.extend(marker.getPosition());
         attach(marker);
         l.marker = marker;
+        markers.push(marker);
     }
     map.fitBounds(bounds);
     ko.applyBindings(new ViewModel());
@@ -90,14 +94,24 @@ var ViewModel = function() {
     var self = this;
 
     // locations list
-    this.placeList = ko.observableArray([]);
+    this.placeList = ko.observableArray(locations);
 
-    locations.forEach(function(placeItem){
-        self.placeList.push( new Place(placeItem) );
-    });
+    // locations.forEach(function(placeItem){
+    //     self.placeList.push( new Place(placeItem) );
+    // });
 
+    // this.currentPlace = ko.observable(this.placeList()[0]);
+
+
+    this.setPlace = function(clickedPlace) {
+        self.placeList(clickedPlace);
+
+
+        google.maps.event.trigger(marker, 'click');
+    };
 
 };
 
-ko.applyBindings(new ViewModel());
+
+// ko.applyBindings(new ViewModel());
 
