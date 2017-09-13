@@ -13,8 +13,8 @@ var locations = [
 
 
 // Setting up the initial map
-var map, infowindow, marker;
-
+var map, marker;
+var infowindow = null;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: initLocation,
@@ -51,6 +51,7 @@ function infoContent(marker, content) {
 function attach(marker) {
     // adding bounce animation to the click event
     marker.addListener('click', toggleBounce);
+
     function toggleBounce() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
@@ -59,7 +60,9 @@ function attach(marker) {
     }
     // adding data to infowindow, click event
     marker.addListener('click', populate);
+
     function populate() {
+
         // info window content
         var url = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' +marker.title+ '&format=json&callback=wikiCallback';
         $.ajax({
@@ -71,9 +74,12 @@ function attach(marker) {
         function processResult(apiResult){
             var contentString = infoContent(marker, apiResult[2]);
             infowindow.setContent(contentString);
+            infowindow.open(map, marker);
         }
     }
-    infowindow.open(map, marker);
+
+
+
 }
 
 
@@ -94,13 +100,22 @@ var ViewModel = function() {
     // locations list
     this.placeList = ko.observableArray(locations);
 
-    var clickePlace = locations.forEach(function(placeItem){
+    var clickedPlace = locations.forEach(function(placeItem){
     });
 
     this.setPlace = function(clickedPlace) {
         self.placeList(clickedPlace);
         google.maps.event.trigger(clickedPlace.marker, 'click');
     };
+
+    // // search function
+    // query = ko.observable('');
+    // searchResult = ko.computed(function() {
+    //     var q = query();
+    //     return self.placeList.filter(function(i) {
+    //         return i.title.toLowerCase().indexOf(q) >= 0;
+    //     });
+    // });
 
 };
 
