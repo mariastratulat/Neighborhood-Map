@@ -8,9 +8,10 @@ var locations = [
     {title:'The Beatles Story', location: {lat: 53.399291, lng: -2.992017}},
     {title:'The Cavern Club', location: {lat: 53.406375, lng: -2.987986}},
     {title:'Liverpool Cathedral', location: {lat: 53.397457, lng: -2.973301}},
-    {title:'World Museum', location: {lat: 53.409975, lng: -2.981639}}
+    {title:'World Museum', location: {lat: 53.409975, lng: -2.981639}},
+    {title:'Exhibition Center', location: {lat: 53.395505, lng: -2.990283}},
+    {title:'Bascule Bridge', location: {lat: 53.421522, lng: -2.998515}}
     ];
-
 
 // Setting up the initial map
 var map, marker;
@@ -122,10 +123,5 @@ var ViewModel = function() {
         }
         self.placeList(array);
     }
-
     self.query.subscribe(searchFilter);
-
 }
-
-ko.applyBindings(new ViewModel());
-

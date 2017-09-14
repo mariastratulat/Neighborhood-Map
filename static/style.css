@@ -1,12 +1,17 @@
+
 html, body { height: 100%; margin: 0; padding: 0; }
+
 #map { height: 100%; width: 100%; }
+
 .gm-style-iw{
     width: 300px !important;
 }
 
+ul {
+  list-style: none;
+}
 
-
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
   .row-offcanvas {
     position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -14,6 +19,12 @@ html, body { height: 100%; margin: 0; padding: 0; }
     transition: all 0.25s ease-out;
   }
 
+  .title {
+  padding-left: 50px;
+  }
+  .row-fluid {
+    word-wrap: break-word;
+}
   .row-offcanvas-left
   .sidebar-offcanvas {
     left: -50%;

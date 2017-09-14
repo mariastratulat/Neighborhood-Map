@@ -2,55 +2,56 @@
 <head>
 <title>Neighborhood Map</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <div class="container">
         <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-                <p class="visible-xs">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                </p>
-                <div class="well sidebar-nav">
-                    <h1>Visit Liverpool</h1>
-                    <input id="input" placeholder="Search..." type="search", name="q", data-bind="textInput: query" autocomplete="off"/>
-                    <div class="list-group">
-                        <ul data-bind="foreach: placeList">
-                            <li data-bind="text: title, click: $parent.setPlace"></li>
-                        </ul>
-                    </div>
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar"
+                 role="navigation">
+                <div class=" sidebar-nav">
+                    <h1 class="row-fluid">Visit Liverpool</h1>
+                    <input class="form-control" placeholder="Search..."
+                           type="search", name="q", data-bind="textInput: query"
+                           autocomplete="off"/>
+                    <ul data-bind="foreach: placeList">
+                        <li data-bind="text: title, click: $parent.setPlace">
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9">
-                <p class="pull-left visible-xs">
-                    <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Places list
+                <div>
+                    <p class="pull-left visible-xs">
+                    <button type="button" class="btn btn-primary"
+                            data-toggle="offcanvas">
+                        <i class="glyphicon glyphicon-list"></i>
                     </button>
-                </p>
-                <div class="jumbotron">
-                <h1>Map</h1>
-                <div id="map">
-                </div>
+                    </p>
+                    <h2 class="title">Map</h2>
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
     <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJqZnG5EpQwoJ21EvMlei69262wR0cKt8&callback=initMap">
     </script>
-
-
     <script src="js/map.js"></script>
     <script src="js/lib/knockout-3.2.0.js"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
     <script type="text/javascript">
         $(document).ready(function() {
-  $('[data-toggle=offcanvas]').click(function() {
-    $('.row-offcanvas').toggleClass('active');
-  });
-});
+            $('[data-toggle=offcanvas]').click(function() {
+                $('.row-offcanvas').toggleClass('active');
+            });
+        });
     </script>
 </body>
 </html>
