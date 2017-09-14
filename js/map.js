@@ -77,9 +77,6 @@ function attach(marker) {
             infowindow.open(map, marker);
         }
     }
-
-
-
 }
 
 
@@ -108,17 +105,27 @@ var ViewModel = function() {
         google.maps.event.trigger(clickedPlace.marker, 'click');
     };
 
-    // // search function
-    // query = ko.observable('');
-    // searchResult = ko.computed(function() {
-    //     var q = query();
-    //     return self.placeList.filter(function(i) {
-    //         return i.title.toLowerCase().indexOf(q) >= 0;
-    //     });
-    // });
+    // search function
+    self.query = ko.observable('');
 
-};
+    function searchFilter(searchstr) {
+        searchstr = searchstr.toLowerCase();
+        var array = [];
+        for (var i=0; i< locations.length; i++) {
+            var l = locations[i];
+            if (l.title.toLowerCase().includes(searchstr)){
+                array.push(l);
+                l.marker.setVisible(true);
+            } else {
+                l.marker.setVisible(false);
+            }
+        }
+        self.placeList(array);
+    }
 
+    self.query.subscribe(searchFilter);
 
-// ko.applyBindings(new ViewModel());
+}
+
+ko.applyBindings(new ViewModel());
 
