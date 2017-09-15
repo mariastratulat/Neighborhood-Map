@@ -77,6 +77,10 @@ function attach(marker) {
             infowindow.setContent(contentString);
             infowindow.open(map, marker);
         }
+        // Error
+        function fail() {
+            alert('Failed to load. Please try again');
+        }
     }
 }
 
@@ -86,11 +90,6 @@ var Place = function(data) {
     this.location = ko.observable(data.location);
 };
 
-
-// Error if lading the map fails
-function fail() {
-    alert('Failed to load. Please try again');
-};
 
 var ViewModel = function() {
     var self = this;
@@ -109,12 +108,12 @@ var ViewModel = function() {
     // search function
     self.query = ko.observable('');
 
-    function searchFilter(searchstr) {
-        searchstr = searchstr.toLowerCase();
+    function searchFilter(search) {
+        search = search.toLowerCase();
         var array = [];
         for (var i=0; i< locations.length; i++) {
             var l = locations[i];
-            if (l.title.toLowerCase().includes(searchstr)){
+            if (l.title.toLowerCase().includes(search)){
                 array.push(l);
                 l.marker.setVisible(true);
             } else {
