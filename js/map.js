@@ -39,7 +39,7 @@ function initMap() {
     }
     map.fitBounds(bounds);
     ko.applyBindings(new ViewModel());
-};
+}
 
 function infoContent(marker, content) {
     var contentString = '<div id="content">' +
@@ -56,7 +56,7 @@ function attach(marker) {
     function toggleBounce() {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
-            marker.setAnimation(null)
+            marker.setAnimation(null);
         }, 1400);
     }
     // adding data to infowindow, click event
@@ -123,4 +123,4 @@ var ViewModel = function() {
         self.placeList(array);
     }
     self.query.subscribe(searchFilter);
-}
+};
