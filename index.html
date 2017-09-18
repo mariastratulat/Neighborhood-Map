@@ -1,11 +1,11 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Neighborhood Map</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-    maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -15,7 +15,7 @@
                 <div class=" sidebar-nav">
                     <h1 class="row-fluid">Visit Liverpool</h1>
                     <input class="form-control" placeholder="Search..."
-                           type="search", name="q", data-bind="textInput: query"
+                           type="search" name="q" data-bind="textInput: query"
                            autocomplete="off"/>
                     <ul data-bind="foreach: placeList">
                         <li data-bind="text: title, click: $parent.setPlace">
@@ -38,13 +38,13 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    </script>
-    <script async defer src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJqZnG5EpQwoJ21EvMlei69262wR0cKt8&callback=initMap">
-    </script>
-    <script src="js/map.js"></script>
     <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/map.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJqZnG5EpQwoJ21EvMlei69262wR0cKt8&callback=initMap"
+    async defer onerror="mapError()">
     </script>
     <script type="text/javascript">
         $(document).ready(function() {

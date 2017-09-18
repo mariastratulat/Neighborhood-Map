@@ -69,25 +69,22 @@ function attach(marker) {
         $.ajax({
             url: url,
             dataType: 'jsonp',
-            success: processResult,
-            fail: fail
+            success: function(apiResult){
+                var contentString = infoContent(marker, apiResult[2]);
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+            },
+            error: function(err) {
+                alert('Failed to load. Please try again');
+            }
         });
-        function processResult(apiResult){
-            var contentString = infoContent(marker, apiResult[2]);
-            infowindow.setContent(contentString);
-            infowindow.open(map, marker);
-        }
-        // Error
-        function fail() {
-            alert('Failed to load. Please try again');
-        }
     }
 }
 
 
 var Place = function(data) {
-    this.title = ko.observable(data.title);
-    this.location = ko.observable(data.location);
+    this.title = data.title;
+    this.location = data.location;
 };
 
 
@@ -100,8 +97,10 @@ var ViewModel = function() {
     var clickedPlace = locations.forEach(function(placeItem){
     });
 
+    this.currentPlace = ko.observable(this.placeList());
+
     this.setPlace = function(clickedPlace) {
-        self.placeList(clickedPlace);
+        self.currentPlace(clickedPlace);
         google.maps.event.trigger(clickedPlace.marker, 'click');
     };
 
@@ -124,3 +123,7 @@ var ViewModel = function() {
     }
     self.query.subscribe(searchFilter);
 };
+
+function mapError() {
+    alert('Failed to load the map. Please check the internet connection and try again');
+}
